@@ -50,10 +50,12 @@ export function createCookieAgent<
     }
 
     private [GET_REQUEST_URL](req: http.ClientRequest): string {
+      const parsedPath = req.path.split('?');
       const requestUrl = liburl.format({
         protocol: req.protocol,
         host: req.host,
-        pathname: req.path,
+        pathname: parsedPath[0],
+        search: parsedPath[1],
       });
 
       return requestUrl;
